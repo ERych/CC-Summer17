@@ -1,7 +1,24 @@
 ## DATS 6450: Cloud Computing
 ### Phase 1: Setting up an virtual machine for machine learning programs
 
-### First, navigate to 
+####*Machine Learning Environment with AWS*
+
+##### Launch EC2 Instance
+* Go to http://console.aws.com and login using your AWS Credentials
+* Under Compute, select EC2 to visit the EC2 Dashboard
+* Select Launch Instance and create an instance with a GPU graphics card. I selected g3.8xlarge. Follow the configuration pages to setup. Add 20 GiB of storage, and make sure to select your existing key pair or create one.
+* Your EC2 instance will launch after completing setup and the indicator will turn green once it is running.
+
+##### Connect using terminal (MAC) or bash (Windows)
+* Launch your instance using SSH and your terminal of choice
+Example:
+``` ssh -i "MyKeyPair.pem" ubuntu@ec2-18-220-74-31.us-east-2.compute.amazonaws.com
+```
+* Run the follow commands to update and upgrade the instance
+``` sudo apt-get update && sudo apt-get upgrade
+```
+
+
 
 
 
