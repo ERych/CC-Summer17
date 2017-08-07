@@ -39,7 +39,7 @@ $ sudo apt-get upgrade cuda
 Make sure it works:
 ```
 $ sudo apt-get install linux-headers-generic linux-headers-virtual linux-image-virtual linux-virtual -y
-
+```
 3. Install cuDNN
 
 Visit https://developer.nvidia.com/rdp/cudnn-download and create a NVIDIA Developer Program account. This is necessary to download cuDNN.
@@ -57,7 +57,9 @@ Install the code samples and the cuDNN Library User Guide:
 $ sudo dpkg -i libcudnn7-doc_7.0.1.13-1+cuda9.0_amd64.deb
 ```
 Now you need to update your bash file
+```
 $ gedit ~/.bashrc
+```
 Scroll to the bottom and insert this line:
 ```
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
