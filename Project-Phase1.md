@@ -128,6 +128,10 @@ The system should output the following:
 ```
 Hello, TensorFlow!
 ```
-
+Installation continued....
+```
 $ sudo pip3 install keras
+$ sudo pip3 install caffe
+$ sudo pip3 install theano
+$ sudo pip3 install torch
 ```
