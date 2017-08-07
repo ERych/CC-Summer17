@@ -14,24 +14,26 @@
 
 Example:
 ```
-$ ssh -i "MyKeyPair.pem" ubuntu@ec2-18-220-74-31.us-east-2.compute.amazonaws.com
+$ ssh -i "MyKeyPair.pem" ubuntu@ec2-18-220-90-33.us-east-2.compute.amazonaws.com
 ```
 2. Run the follow commands to update and upgrade the instance
 ```
 $ sudo apt-get update && sudo apt-get upgrade
+$ sudo apt install gcc
 ```
 ##### Step 3. Install and Test Cuda
 1. Install Nvidia Drivers using the following commands:
 ```
 $ sudo add-apt-repository ppa:graphics-drivers/ppa
 $ sudo apt update
-$ sudo apt-get install nvidia- (press tab to see latest)
+$ sudo apt-get install nvidia-384
 ```
 Make sure to restart your server after installing.
 
 2. Next, install Cuda. Go here for the official documentation:https://developer.nvidia.com/rdp/cudnn-download.
 ```
-$ sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb
+$ wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
+$ cd cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
 $ sudo apt-get update
 $ sudo apt-get install -y cuda
 $ sudo apt-get upgrade cuda
@@ -66,25 +68,66 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/e
 export CUDA_HOME=/usr/local/cuda
 ```
 
+4. Test if it's working:
 
-
-
-#. Install Python
+From the official documentation, use this example to test if it's working by compiling the mnistCUDNN
+sample located in the /usr/src/cudnn_samples_v7 directory in the debian file.
+  1. Copy the cuDNN sample to a writable path.
 ```
-sudo apt-get install python3-pip
+$cp -r /usr/src/cudnn_samples_v7/ $HOME
 ```
-Once installed, test it's working. Exit() will quit Python once it runs successfully.
+ 2. Go to the writable path.
+```
+$ cd $HOME/cudnn_samples_v7/mnistCUDNN
+```
+ 3. Compile the mnistCUDNN sample.
+```
+$make clean &&& make
+```
+4. Run the mnistCUDNN sample.
+```
+$ ./mnistCUDNN
+```
+If cuDNN is properly installed and running on your Linux system, you will see a
+message similar to the following:
+Test passed!
+
+##### Step 4: Install Python and it's related libraries
+1. Install Python 3
+```
+$ sudo apt-get install python3-pip
+```
+Once installed, test if it's working. Exit() will quit Python once it runs successfully.
 ![python image](/images/python.jpeg)
 
-#. Next, install
+2. Install the following python libraries:
+```
+$ sudo pip3 install --upgrade pip
+$ sudo apt-get install python3-tk
+$ sudo pip3 install numpy
+$ sudo pip3 install seaborn
+$ sudo pip3 install pandas
+$ sudo pip3 install sklearn
+$ sudo pip3 install matplotlib
+$ sudo pip3 install seaborn
+```
+3. Install tensorflow (This version is for python 3 with GPU support)
+```
+$ pip3 install tensorflow-gpu
+```
 
-5.sudo pip3 install --upgrade pip
-6.sudo apt-get install python3-tk
-7.sudo pip3 install numpy
-8.sudo pip3 install seaborn
-9.sudo pip3 install scipy
-10.sudo pip3 install sklearn
-11.sudo pip3 install matplotlib
-12.sudo pip3 install seaborn
-13.sudo pip3 install tensorflow
-14.sudo pip3 install keras
+Run a short TensorFlow program to see if it's working:
+```python
+# Python
+import tensorflow as tf
+hello = tf.constant('Hello, TensorFlow!')
+sess = tf.Session()
+print(sess.run(hello))
+```
+The system should output the following:
+```
+Hello, TensorFlow!
+```
+
+$ sudo pip3 install keras
+```
