@@ -9,7 +9,7 @@
 3. Select Launch Instance and create an instance with a GPU graphics card. I selected g3.8xlarge. Follow the configuration pages to setup. Add 20 GiB of storage, and make sure to select your existing key pair or create one.
 4. Your EC2 instance will launch after completing setup and the indicator will turn green once it is running.
 
-##### Step 2. Connect using terminal (MAC) or bash (Windows)
+### Step 2. Connect using terminal (MAC) or bash (Windows)
 1. Launch your instance using SSH and your terminal of choice
 
 Example:
@@ -21,7 +21,7 @@ $ ssh -i "MyKeyPair.pem" ubuntu@ec2-18-220-90-33.us-east-2.compute.amazonaws.com
 $ sudo apt-get update && sudo apt-get upgrade
 $ sudo apt install gcc
 ```
-##### Step 3. Install and Test Cuda
+### Step 3. Install and Test Cuda
 1. Install Nvidia Drivers using the following commands:
 ```
 $ sudo add-apt-repository ppa:graphics-drivers/ppa
@@ -42,7 +42,7 @@ Make sure it works:
 ```
 $ nvidia-smi
 ```
-##### Step 4. Install and Test cudaNN
+### Step 4. Install and Test cudaNN
 
 CudaNN is a GPU-accelerated library of primitives for deep neural networks. This library provides highly tuned implementations for standard routines such as forward and backward convolution, pooling, normalization, and activation layers.
 
@@ -90,7 +90,7 @@ $ ubuntu@ip-172-31-33-60:~/Downloads/cuda$ sudo cp include/* /usr/local/cuda/inc
 cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2    
 ```
 
-##### Step 5: Install Python and it's related libraries
+### Step 5: Install Python and it's related libraries
 1. Install Python 3
 ```
 $ sudo apt-get install python3-pip
@@ -109,7 +109,7 @@ $ sudo pip3 install matplotlib
 $ sudo pip3 install keras
 $ sudo pip3 install theano
 ```
-##### Step 6. Install Tensorflow
+### Step 6. Install Tensorflow
 ```
 $ sudo pip3 install tensorflow
 ```
@@ -132,7 +132,7 @@ The system should output the following:
 ```
 Hello, TensorFlow!
 ```
-##### Step 7. Install Caffe
+### Step 7. Install Caffe
 This instructions are based on this helpful resource: https://github.com/BVLC/caffe/wiki/Install-Caffe-on-EC2-from-scratch-(Ubuntu,-CUDA-7,-cuDNN-3)
 
 1. Install the dependencies with all of these installs:
@@ -175,7 +175,7 @@ Now test Caffe:
 ```
 $ ./data/mnist/get_mnist.sh
 ```
-##### Step 8. Install Torch
+### Step 8. Install Torch
 This instructions are based on this helpful resource:
 http://torch.ch/docs/getting-started.html
 
