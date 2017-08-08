@@ -40,65 +40,61 @@ $ sudo apt-get upgrade cuda
 ```
 Make sure it works:
 ```
-$ sudo apt-get install linux-headers-generic linux-headers-virtual linux-image-virtual linux-virtual -y
+$ nvidia-smi
 ```
-3. Install cuDNN
+##### Step 4. Install and Test cudaNN
 
-Visit https://developer.nvidia.com/rdp/cudnn-download and create a NVIDIA Developer Program account. This is necessary to download cuDNN.
+CudaNN is a GPU-accelerated library of primitives for deep neural networks. This library provides highly tuned implementations for standard routines such as forward and backward convolution, pooling, normalization, and activation layers.
 
-Now, go to the toolkit default install location at /usr/local/cuda. Next, run the following:
+1. You must first visit https://developer.nvidia.com/rdp/cudnn-download and create a NVIDIA Developer Program account. This is necessary to download cudaNN
+
+2. A good way to install this library is to download it from Chrome inside your EC2 Instance. Install Google Chrome using the following commands:
+
 ```
-$ sudo dpkg -i libcudnn7_7.0.1.13-1+cuda9.0_amd64.deb
+#Add Key:
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 ```
-Install the developer library
 ```
-$ sudo dpkg -i libcudnn7-dev_7.0.1.13-1+cuda9.0_amd64.deb
+#Set repository:
+sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 ```
-Install the code samples and the cuDNN Library User Guide:
 ```
-$ sudo dpkg -i libcudnn7-doc_7.0.1.13-1+cuda9.0_amd64.deb
-```
-Now you need to update your bash file
-```
-$ gedit ~/.bashrc
-```
-Scroll to the bottom and insert this line:
-```
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
-export CUDA_HOME=/usr/local/cuda
+#Install package:
+sudo apt-get update
+sudo apt-get install google-chrome-stable
 ```
 
-4. Test if it's working:
+Test Chrome is working by running ``` google-chrome ``` in the command line.
 
-From the official documentation, use this example to test if it's working by compiling the mnistCUDNN
-sample located in the /usr/src/cudnn_samples_v7 directory in the debian file.
-  1. Copy the cuDNN sample to a writable path.
-```
-$cp -r /usr/src/cudnn_samples_v7/ $HOME
-```
- 2. Go to the writable path.
-```
-$ cd $HOME/cudnn_samples_v7/mnistCUDNN
-```
- 3. Compile the mnistCUDNN sample.
-```
-$make clean &&& make
-```
-4. Run the mnistCUDNN sample.
-```
-$ ./mnistCUDNN
-```
-If cuDNN is properly installed and running on your Linux system, you will see a
-message similar to the following:
-Test passed!
+2. Next, download the Linux library for Cuda 8.0 in your newly installed Chrome browser from this website:
+https://developer.nvidia.com/rdp/cudnn-download
 
-##### Step 4: Install Python and it's related libraries
+You must sign in using the credentials you created in Part 1.
+
+3. After downloading completes, return to the terminal and unzip the file.
+```
+$ cd ~
+$ cd Downloads
+$ tar -zxf cudnn-8.0-linux-x64-v7.tgz
+```
+```
+4. Copy the following files into the Cuda Toolkit Directory
+$ ubuntu@ip-172-31-33-60:~/Downloads$ cd cuda
+$ ubuntu@ip-172-31-33-60:~/Downloads/cuda$ sudo cp lib64/* /usr/local/cuda/lib64/
+$ ubuntu@ip-172-31-33-60:~/Downloads/cuda$ sudo cp include/* /usr/local/cuda/include/
+```
+
+5. Test the installation:
+```
+cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2    
+```
+
+##### Step 5: Install Python and it's related libraries
 1. Install Python 3
 ```
 $ sudo apt-get install python3-pip
 ```
-Once installed, test if it's working. Exit() will quit Python once it runs successfully.
-![python image](/images/python.jpeg)
+Test if Python 3 is installed: ```python3 --version```.
 
 2. Install the following python libraries:
 ```
