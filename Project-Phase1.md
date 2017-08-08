@@ -1,9 +1,9 @@
-## DATS 6450: Cloud Computing
-### Phase 1: Setting up an virtual machine for machine learning programs
+# DATS 6450: Cloud Computing
+## Phase 1: Setting up an virtual machine for machine learning programs
 
 *Machine Learning Environment with AWS*
 
-##### Step 1. Launch EC2 Instance
+### Step 1. Launch EC2 Instance
 1. Go to http://console.aws.com and login using your AWS Credentials
 2. Under Compute, select EC2 to visit the EC2 Dashboard
 3. Select Launch Instance and create an instance with a GPU graphics card. I selected g3.8xlarge. Follow the configuration pages to setup. Add 20 GiB of storage, and make sure to select your existing key pair or create one.
@@ -204,4 +204,3 @@ If successful, Torch will start:
  /_/  \___/_/  \__/_//_/  |  https://github.com/torch   
                           |  http://torch.ch       
 ```
-                               
