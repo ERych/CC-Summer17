@@ -77,8 +77,9 @@ $ cd ~
 $ cd Downloads
 $ tar -zxf cudnn-8.0-linux-x64-v7.tgz
 ```
-```
+
 4. Copy the following files into the Cuda Toolkit Directory
+```
 $ ubuntu@ip-172-31-33-60:~/Downloads$ cd cuda
 $ ubuntu@ip-172-31-33-60:~/Downloads/cuda$ sudo cp lib64/* /usr/local/cuda/lib64/
 $ ubuntu@ip-172-31-33-60:~/Downloads/cuda$ sudo cp include/* /usr/local/cuda/include/
@@ -105,14 +106,18 @@ $ sudo pip3 install seaborn
 $ sudo pip3 install pandas
 $ sudo pip3 install sklearn
 $ sudo pip3 install matplotlib
-$ sudo pip3 install seaborn
+$ sudo pip3 install keras
+$ sudo pip3 install theano
 ```
-3. Install tensorflow (This version is for python 3 with GPU support)
+##### Step 6. Install Tensorflow
 ```
-$ pip3 install tensorflow-gpu
+$ sudo pip3 install tensorflow
 ```
 
 Run a short TensorFlow program to see if it's working:
+```
+vim tftest.py
+```
 ```python
 # Python
 import tensorflow as tf
@@ -120,14 +125,83 @@ hello = tf.constant('Hello, TensorFlow!')
 sess = tf.Session()
 print(sess.run(hello))
 ```
+```
+python3 tftest.py
+```
 The system should output the following:
 ```
 Hello, TensorFlow!
 ```
-Installation continued....
+##### Step 7. Install Caffe
+This instructions are based on this helpful resource: https://github.com/BVLC/caffe/wiki/Install-Caffe-on-EC2-from-scratch-(Ubuntu,-CUDA-7,-cuDNN-3)
+
+1. Install the dependencies with all of these installs:
 ```
-$ sudo pip3 install keras
-$ sudo pip3 install caffe
-$ sudo pip3 install theano
-$ sudo pip3 install torch
+sudo apt-get install -y libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libboost-all-dev libhdf5-serial-dev protobuf-compiler gfortran libjpeg62 libfreeimage-dev libatlas-base-dev git python-dev  libgoogle-glog-dev libbz2-dev libxml2-dev libxslt-dev libffi-dev libssl-dev libgflags-dev liblmdb-dev python-yaml
 ```
+Then run:
+```
+$ sudo easy_install pillow
+```
+2. Clone Caffe.git
+```
+$ cd ~
+$ git clone https://github.com/BVLC/caffe.git
+```
+3. Cd to Caffe folder and run the follwing:
+```
+$ cat python/requirements.txt | xargs -L 1 sudo pip install
+```
+
+4. Next, copy the Makefile.config.example to create our own Makefile.config
+```
+$ cp Makefile.config.example Makefile.config
+$ vi Makefile.config
+```
+Uncomment the line: USE_CUDNN := 1
+Make sure the CUDA_DIR correctly points to our CUDA installation.
+
+5. Now we build Caffe. Set X to the number of CPU threads (or cores) on your machine. For me, this was 8.
+
+```
+$ sudo apt-get install htop
+```
+```
+$ make pycaffe -jX
+$ make all -jX
+$ make test -jX
+```
+Now test Caffe:
+```
+$ ./data/mnist/get_mnist.sh
+```
+##### Step 8. Install Torch
+This instructions are based on this helpful resource:
+http://torch.ch/docs/getting-started.html
+
+Run the following in the terminal:
+```
+$ git clone https://github.com/torch/distro.git ~/torch --recursive
+$ cd ~/torch; bash install-deps;
+$ ./install.sh
+```
+The last command will take some time to install.
+
+Then run:
+```
+source ~/.bashrc
+```
+Test if it's working:
+```
+$ th
+```
+If successful, Torch will start:
+```
+
+  ______             __   |  Torch7                                   
+ /_  __/__  ________/ /   |  Scientific computing for Lua.         
+  / / / _ \/ __/ __/ _ \  |                                           
+ /_/  \___/_/  \__/_//_/  |  https://github.com/torch   
+                          |  http://torch.ch       
+```
+                               
