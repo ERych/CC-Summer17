@@ -5,8 +5,11 @@
 
 ### Step 1. Launch EC2 Instance
 1. Go to http://console.aws.com and login using your AWS Credentials
+
 2. Under Compute, select EC2 to visit the EC2 Dashboard
+
 3. Select Launch Instance and create an instance with a GPU graphics card. I selected g3.8xlarge. Follow the configuration pages to setup. Add 20 GiB of storage, and make sure to select your existing key pair or create one.
+
 4. Your EC2 instance will launch after completing setup and the indicator will turn green once it is running.
 
 ### Step 2. Connect using terminal (MAC) or bash (Windows)
@@ -16,11 +19,13 @@ Example:
 ```
 $ ssh -i "MyKeyPair.pem" ubuntu@ec2-18-220-90-33.us-east-2.compute.amazonaws.com
 ```
+
 2. Run the follow commands to update and upgrade the instance
 ```
 $ sudo apt-get update && sudo apt-get upgrade
 $ sudo apt install gcc
 ```
+
 ### Step 3. Install and Test Cuda
 1. Install Nvidia Drivers using the following commands:
 ```
@@ -30,7 +35,7 @@ $ sudo apt-get install nvidia-384
 ```
 Make sure to restart your server after installing.
 
-2. Next, install Cuda. Go here for the official documentation:https://developer.nvidia.com/rdp/cudnn-download.
+2. Next, install Cuda. Go here for the official documentation and choose the correct installation:https://developer.nvidia.com/rdp/cudnn-download.
 ```
 $ wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
 $ cd cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
@@ -42,13 +47,15 @@ Make sure it works:
 ```
 $ nvidia-smi
 ```
+
 ### Step 4. Install and Test cudaNN
 
 CudaNN is a GPU-accelerated library of primitives for deep neural networks. This library provides highly tuned implementations for standard routines such as forward and backward convolution, pooling, normalization, and activation layers.
 
 1. You must first visit https://developer.nvidia.com/rdp/cudnn-download and create a NVIDIA Developer Program account. This is necessary to download cudaNN
 
-2. A good way to install this library is to download it from Chrome inside your EC2 Instance. Install Google Chrome using the following commands:
+2. An easy way to install this library is to download it from Chrome *inside your EC2 Instance*.
+Install Google Chrome using the following commands:
 
 ```
 #Add Key:
@@ -65,6 +72,7 @@ sudo apt-get install google-chrome-stable
 ```
 
 Test Chrome is working by running ``` google-chrome ``` in the command line.
+
 
 2. Next, download the Linux library for Cuda 8.0 in your newly installed Chrome browser from this website:
 https://developer.nvidia.com/rdp/cudnn-download
@@ -109,6 +117,7 @@ $ sudo pip3 install matplotlib
 $ sudo pip3 install keras
 $ sudo pip3 install theano
 ```
+
 ### Step 6. Install Tensorflow
 ```
 $ sudo pip3 install tensorflow
@@ -132,6 +141,7 @@ The system should output the following:
 ```
 Hello, TensorFlow!
 ```
+
 ### Step 7. Install Caffe
 This instructions are based on this helpful resource: https://github.com/BVLC/caffe/wiki/Install-Caffe-on-EC2-from-scratch-(Ubuntu,-CUDA-7,-cuDNN-3)
 
@@ -175,6 +185,7 @@ Now test Caffe:
 ```
 $ ./data/mnist/get_mnist.sh
 ```
+
 ### Step 8. Install Torch
 This instructions are based on this helpful resource:
 http://torch.ch/docs/getting-started.html
@@ -204,3 +215,23 @@ If successful, Torch will start:
  /_/  \___/_/  \__/_//_/  |  https://github.com/torch   
                           |  http://torch.ch       
 ```
+
+### Step 9. Install pycharm
+1. Run ```google-chrome``` to open the Chrome browser
+
+2. Navigate to https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC and download the Linux version of PyCharm Community
+
+3. Cd to Downloads folder in the terminal and unzip:
+```
+$ cd ~
+$ cd Downloads
+$ tar -zxf pycharm-community-2017.2.tar.gz
+```
+
+4. To open PyCharm community:
+```
+$ cd pycharm-community-2017.2
+$ cd bin
+$ cd ./pycharm.sh
+```
+### You have now made a deep learning virtual machine! Congrats!
